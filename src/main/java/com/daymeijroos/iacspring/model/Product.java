@@ -1,8 +1,7 @@
 package com.daymeijroos.iacspring.model;
 
-import jakarta.persistence.*;
-
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
