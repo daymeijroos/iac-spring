@@ -1,36 +1,25 @@
-package com.daymeijroos.iacspring.model;
+package com.daymeijroos.iacspring.dto;
 
 import com.daymeijroos.iacspring.enums.Country;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Data;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Entity
-@Table
-public class ShippingDetails {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(columnDefinition = "VARCHAR(36)")
+@Data
+public class ShippingDetailsDTO {
     private String id;
 
-    @NotNull(message = "User cannot be null")
-    @OneToOne
-    private User user;
+    @NotBlank(message = "User ID cannot be empty.")
+    private String userId;
 
-    @NotBlank(message = "First name cannot be empty")
-    private String first_name;
+    @NotBlank(message = "First name cannot be empty.")
+    private String firstName;
 
     @NotBlank(message = "Last name cannot be empty")
-    private String last_name;
+    private String lastName;
 
     @NotBlank(message = "Phone number cannot be empty")
     @Size(min = 10, max = 10, message = "Length does not match a regular phone number")
@@ -39,7 +28,6 @@ public class ShippingDetails {
     private String phone;
 
     @NotNull(message = "Country cannot be null")
-    @Enumerated
     private Country country;
 
     @NotBlank(message = "City cannot be empty")

@@ -29,13 +29,11 @@ public class User {
     @ToString.Exclude
     private String password;
 
-    @Column(updatable = false)
     private boolean admin = false;
 
     @OneToOne(mappedBy = "user", orphanRemoval = true)
     private ShippingDetails shippingDetails;
 
-    @Column(updatable = false)
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 

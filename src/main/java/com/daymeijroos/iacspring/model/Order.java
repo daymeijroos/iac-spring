@@ -3,6 +3,7 @@ package com.daymeijroos.iacspring.model;
 import com.daymeijroos.iacspring.enums.PaymentStatus;
 import com.daymeijroos.iacspring.enums.ShippingStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -28,6 +29,7 @@ public class Order {
     @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NotNull(message="User cannot be null.")
     private User user;
 
     @Getter(AccessLevel.NONE)
@@ -43,7 +45,7 @@ public class Order {
     private List<Product> products = new ArrayList<>();
 
     @Enumerated
-    private PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus = PaymentStatus.UNPAID;
 
     @ManyToOne
     @JoinColumn(name = "shipping_details_id")

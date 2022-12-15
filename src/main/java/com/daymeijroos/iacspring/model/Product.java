@@ -2,6 +2,7 @@ package com.daymeijroos.iacspring.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,7 +26,7 @@ public class Product {
     @NotBlank(message="Description cannot be empty.")
     private String description;
 
-    @NotBlank(message="Price cannot be empty.")
+    @NotNull(message="Price cannot be empty.")
     @Positive(message = "Price must be positive")
     private Float price;
 
@@ -34,6 +35,6 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @NotBlank(message="Category cannot be empty")
+    @NotNull(message="Category cannot be empty")
     private Category category;
 }
