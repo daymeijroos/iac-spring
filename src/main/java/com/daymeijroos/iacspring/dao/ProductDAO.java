@@ -1,6 +1,6 @@
 package com.daymeijroos.iacspring.dao;
 
-import com.daymeijroos.iacspring.dao.repository.ProductRepository;
+import com.daymeijroos.iacspring.repository.ProductRepository;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.model.Product;
 import lombok.AllArgsConstructor;
