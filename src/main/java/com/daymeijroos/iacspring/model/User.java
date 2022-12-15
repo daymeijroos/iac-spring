@@ -23,6 +23,7 @@ public class User {
 
     @NotBlank(message = "E-mail address cannot be empty")
     @Email(message = "This is not a valid E-mail address")
+    @Column(unique = true)
     private String email;
 
     @NotBlank(message = "Password cannot be empty")
@@ -36,10 +37,4 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "user_cart_product",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> cartProducts = new ArrayList<>();
 }

@@ -50,7 +50,6 @@ public class ProductDAO implements DAO<Product>{
     public void delete(String id) throws ResourceNotFoundException {
         productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Building", id));
-
         this.productRepository.deleteById(id);
     }
 }

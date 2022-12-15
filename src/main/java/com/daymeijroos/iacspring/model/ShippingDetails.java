@@ -27,10 +27,10 @@ public class ShippingDetails {
     private User user;
 
     @NotBlank(message = "First name cannot be empty")
-    private String first_name;
+    private String firstName;
 
     @NotBlank(message = "Last name cannot be empty")
-    private String last_name;
+    private String lastName;
 
     @NotBlank(message = "Phone number cannot be empty")
     @Size(min = 10, max = 10, message = "Length does not match a regular phone number")
@@ -48,7 +48,7 @@ public class ShippingDetails {
     @NotBlank(message = "Postal code cannot be empty")
     @Size(min = 4, max = 10, message = "Length does not match a postal code")
     @Column(columnDefinition = "VARCHAR(10)")
-    private String postal_code;
+    private String postalCode;
 
     @NotBlank(message = "Address cannot be empty")
     private String address;

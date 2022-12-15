@@ -19,6 +19,4 @@ public class UserDTO {
     private ShippingDetails shippingDetails;
 
     private List<GetOrderDTO> orders = new ArrayList<>();
-
-    private List<ProductDTO> cartProducts = new ArrayList<>();
 }
