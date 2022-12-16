@@ -1,15 +1,19 @@
 package com.daymeijroos.iacspring.mapper;
 
-import com.daymeijroos.iacspring.dao.ProductDAO;
 import com.daymeijroos.iacspring.dto.ProductDTO;
-import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.model.Product;
 import jakarta.annotation.Nonnull;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper implements Mapper<Product, ProductDTO> {
+    //public CategoryMapper categoryMapper;
+
+    //@Autowired
+    //public ProductMapper(CategoryMapper categoryMapper) {
+    //    this.categoryMapper = categoryMapper;
+    //}
+
     @Override
     public Product fromDTOToEntity(@Nonnull ProductDTO productDTO) {
         Product product = new Product();
@@ -19,6 +23,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setImageURL(productDTO.getImageURL());
+        //product.setCategory(categoryMapper.fromDTOToEntity(productDTO.getCategory()));
 
         return product;
     }
@@ -31,6 +36,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
         productDTO.setDescription(product.getDescription());
         productDTO.setPrice(product.getPrice());
         productDTO.setImageURL(product.getImageURL());
+        //productDTO.setCategory(CategoryMapper.fromEntityToDTO());
 
         return productDTO;
     }

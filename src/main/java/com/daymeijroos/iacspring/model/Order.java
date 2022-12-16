@@ -25,8 +25,6 @@ public class Order {
     @Column(columnDefinition = "VARCHAR(255)")
     private String id;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull(message="User cannot be null.")

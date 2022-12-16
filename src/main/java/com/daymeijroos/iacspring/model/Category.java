@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -22,4 +25,7 @@ public class Category {
     private String name;
 
     private String description;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> products = new ArrayList<>();
 }

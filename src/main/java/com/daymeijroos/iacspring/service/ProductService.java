@@ -8,6 +8,7 @@ import com.daymeijroos.iacspring.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,15 +23,36 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public List<ProductDTO> getAllProducts() {
+    public List<ProductDTO> get(String id) throws ResourceNotFoundException {
+        if (id != null) {
+            List<ProductDTO> products = new ArrayList<>();
+            Product product = productDAO.getById(id);
+            products.add(productMapper.fromEntityToDTO(product));
+            return products;
+        }
         return productDAO.getAll().stream().map(productMapper::fromEntityToDTO)
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO getProductById(String id) throws ResourceNotFoundException {
-        Product product = productDAO.getById(id);
-        return productMapper.fromEntityToDTO(product);
+    public ProductDTO post(ProductDTO productDTO) {
+        Product product = productMapper.fromDTOToEntity(productDTO);
+        Product savedProduct = this.productDAO.saveToDatabase(product);
+        return productMapper.fromEntityToDTO(savedProduct);
     }
 
-    public void WriteProduct()
+    public ProductDTO update(ProductDTO productDTO) throws ResourceNotFoundException {
+        Product product = productMapper.fromDTOToEntity(productDTO);
+        Product updatedProduct = productDAO.update(product.getId(), product);
+        return productMapper.fromEntityToDTO(updatedProduct);
+    }
+
+    public ProductDTO patch(ProductDTO productDTO) throws ResourceNotFoundException {
+        Product product = productMapper.fromDTOToEntity(productDTO);
+        Product updatedProduct = productDAO.update(product.getId(), product);
+        return productMapper.fromEntityToDTO(updatedProduct);
+    }
+
+    public void delete(String id) throws ResourceNotFoundException {
+        productDAO.delete(id);
+    }
 }

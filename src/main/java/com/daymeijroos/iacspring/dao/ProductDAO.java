@@ -3,16 +3,20 @@ package com.daymeijroos.iacspring.dao;
 import com.daymeijroos.iacspring.repository.ProductRepository;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.model.Product;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 @Component
 public class ProductDAO implements DAO<Product>{
     private final ProductRepository productRepository;
+
+    @Autowired
+    public ProductDAO(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public List<Product> getAll() {
@@ -37,19 +41,18 @@ public class ProductDAO implements DAO<Product>{
     @Override
     public Product update(String id, Product productRequest) throws ResourceNotFoundException {
         Product product = this.productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Building", id));
-
-        product.setName(productRequest.getName());
-        product.setDescription(productRequest.getDescription());
-        product.setPrice(productRequest.getPrice());
-        product.setImageURL(productRequest.getImageURL());
+                .orElseThrow(() -> new ResourceNotFoundException("Product", id));
+        if (productRequest.getName() != null) {product.setName(productRequest.getName());}
+        if (productRequest.getDescription() != null) {product.setDescription(productRequest.getDescription());}
+        if (productRequest.getPrice() != null) {product.setPrice(productRequest.getPrice());}
+        if (productRequest.getImageURL() != null) {product.setImageURL(productRequest.getImageURL());}
         return productRepository.save(product);
     }
 
     @Override
     public void delete(String id) throws ResourceNotFoundException {
         productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Building", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product", id));
         this.productRepository.deleteById(id);
     }
 }

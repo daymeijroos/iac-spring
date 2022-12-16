@@ -36,7 +36,7 @@ public class ShippingDetailsDTO {
     @NotBlank(message = "Postal code cannot be empty")
     @Size(min = 4, max = 10, message = "Length does not match a postal code")
     @Column(columnDefinition = "VARCHAR(10)")
-    private String postal_code;
+    private String postalCode;
 
     @NotBlank(message = "Address cannot be empty")
     private String address;

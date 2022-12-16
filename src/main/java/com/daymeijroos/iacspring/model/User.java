@@ -26,10 +26,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "Password cannot be empty")
-    @ToString.Exclude
-    private String password;
-
     private boolean admin = false;
 
     @OneToOne(mappedBy = "user", orphanRemoval = true)

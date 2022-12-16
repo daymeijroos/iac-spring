@@ -19,6 +19,6 @@ public class ProductDTO {
     @NotBlank(message="Image cannot be empty.")
     private String imageURL;
 
-    @NotBlank(message="Category ID Cannot be empty.")
-    private String category_id;
+    @NotBlank(message="Category Cannot be empty.")
+    private CategoryDTO category;
 }

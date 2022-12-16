@@ -48,7 +48,6 @@ public class UserDAO implements DAO<User>{
         User user = this.userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", id));
         user.setEmail(userRequest.getEmail());
-        user.setPassword(userRequest.getPassword());
         return userRepository.save(user);
     }
 

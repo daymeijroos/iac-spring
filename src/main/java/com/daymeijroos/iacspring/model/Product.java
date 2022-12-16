@@ -34,7 +34,6 @@ public class Product {
     private String imageURL;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
     @NotNull(message="Category cannot be empty")
     private Category category;
 }

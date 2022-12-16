@@ -1,6 +1,5 @@
 package com.daymeijroos.iacspring.dto;
 
-import com.daymeijroos.iacspring.model.ShippingDetails;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -16,7 +15,7 @@ public class UserDTO {
     @Email(message = "This is not a valid E-mail address")
     private String email;
 
-    private ShippingDetails shippingDetails;
+    private ShippingDetailsDTO shippingDetails;
 
     private List<GetOrderDTO> orders = new ArrayList<>();
 }
