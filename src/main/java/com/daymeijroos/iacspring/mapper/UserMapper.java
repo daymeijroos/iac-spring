@@ -1,26 +1,27 @@
 package com.daymeijroos.iacspring.mapper;
 
-import com.daymeijroos.iacspring.dao.UserDAO;
 import com.daymeijroos.iacspring.dto.UserDTO;
 import com.daymeijroos.iacspring.model.User;
-import lombok.AllArgsConstructor;
+import jakarta.annotation.Nonnull;
+import org.springframework.stereotype.Component;
 
-@AllArgsConstructor
+@Component
 public class UserMapper implements Mapper<User, UserDTO> {
-    private final UserDAO userDAO;
-
     @Override
-    public User fromDTOToEntity(UserDTO userDTO) {
-        return null;
+    public User fromDTOToEntity(@Nonnull UserDTO userDTO) {
+        User user = new User();
+        user.setId(userDTO.getId());
+        user.setEmail(userDTO.getEmail());
+        return user;
     }
 
     @Override
-    public UserDTO fromEntityToDTO(User user) {
-        return null;
-    }
-
-    @Override
-    public User fromIdToEntity(String id) {
-        return null;
+    public UserDTO fromEntityToDTO(@Nonnull User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setShippingDetails(user.getShippingDetails());
+        //userDTO.setOrders();
+        return userDTO;
     }
 }

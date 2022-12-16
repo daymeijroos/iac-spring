@@ -6,12 +6,14 @@ import com.daymeijroos.iacspring.dto.ProductDTO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.mapper.ProductMapper;
 import com.daymeijroos.iacspring.model.Product;
+import com.daymeijroos.iacspring.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,24 +24,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping(value = "/product")
 public class ProductController {
-    private final ProductDAO productDAO;
-    private final ProductMapper productMapper;
+    private final ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<ProductDTO> getAllProducts() {
-        return productDAO.getAll().stream().map(productMapper::fromEntityToDTO)
-                .collect(Collectors.toList());
+        return productService.getAllProducts();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ProductDTO> getProductByID(@PathVariable String id) {
         try {
-            Product product = this.productDAO.getById(id);
-            ProductDTO productResponse = productMapper.fromEntityToDTO(product);
-            return ResponseEntity.ok().body(productResponse);
+            return ResponseEntity.ok().body(productService.getProductById(id));
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
@@ -47,7 +49,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody @Valid ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> postProduct(@RequestBody @Valid ProductDTO productDTO) {
         Product productRequested = productMapper.fromDTOToEntity(productDTO);
         Product product = this.productDAO.saveToDatabase(productRequested);
         ProductDTO productResponse = productMapper.fromEntityToDTO(product);
