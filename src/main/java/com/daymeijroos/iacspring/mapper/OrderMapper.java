@@ -1,7 +1,6 @@
 package com.daymeijroos.iacspring.mapper;
 
 import com.daymeijroos.iacspring.dao.ProductDAO;
-import com.daymeijroos.iacspring.dao.UserDAO;
 import com.daymeijroos.iacspring.dto.GetOrderDTO;
 import com.daymeijroos.iacspring.dto.PlaceOrderDTO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
@@ -17,21 +16,21 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderMapper {
-    public ProductMapper productMapper;
-    //public ShippingDetailsMapper shippingDetailsMapper;
-    public UserDAO userDAO;
+    ProductMapper productMapper;
+    ShippingDetailsMapper shippingDetailsMapper;
     ProductDAO productDAO;
 
     @Autowired
-    public OrderMapper(ProductMapper productMapper, UserDAO userDAO) {
+    public OrderMapper(ProductDAO productDAO, ProductMapper productMapper, ShippingDetailsMapper shippingDetailsMapper) {
+        this.productDAO = productDAO;
         this.productMapper = productMapper;
-        this.userDAO = userDAO;
+        this.shippingDetailsMapper = shippingDetailsMapper;
     }
 
     public Order fromDTOToEntity(@Nonnull PlaceOrderDTO placeOrderDTO) throws ResourceNotFoundException {
         Order order = new Order();
         order.setId(placeOrderDTO.getId());
-        order.setUser(userDAO.getById(placeOrderDTO.getUserId()));
+        order.setUserId((placeOrderDTO.getUserId()));
         List<Product> products = new ArrayList<>();
         for (String productId : placeOrderDTO.getProductIds()) {
             Product product = productDAO.getById(productId);
@@ -44,10 +43,10 @@ public class OrderMapper {
     public GetOrderDTO fromEntityToDTO(@Nonnull Order order) {
         GetOrderDTO getOrderDTO = new GetOrderDTO();
         getOrderDTO.setId(order.getId());
-        getOrderDTO.setUserId(order.getUser().getId());
+        getOrderDTO.setUserId(order.getUserId());
         getOrderDTO.setProducts(order.getProducts().stream().map(productMapper::fromEntityToDTO).collect(Collectors.toList()));
         getOrderDTO.setPaymentStatus(order.getPaymentStatus());
-        //getOrderDTO.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
+        getOrderDTO.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
         getOrderDTO.setShippingStatus(order.getShippingStatus());
         getOrderDTO.setTotalPrice(order.getTotalPrice());
         return getOrderDTO;

@@ -1,31 +1,33 @@
 package com.daymeijroos.iacspring.controller;
 
-import com.daymeijroos.iacspring.dto.UserDTO;
+import com.daymeijroos.iacspring.dto.CategoryDTO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
-import com.daymeijroos.iacspring.service.UserService;
+import com.daymeijroos.iacspring.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
-public class UserController {
-    private final UserService userService;
+@RequestMapping(value = "/category")
+public class CategoryController {
+    private final CategoryService categoryService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getProducts(@RequestParam(required = false) String id, @RequestParam(required = false) String email) {
+    public ResponseEntity<List<CategoryDTO>> getCategory(@RequestParam(required = false) String id, @AuthenticationPrincipal OidcUser principal) {
         try {
-            return ResponseEntity.ok(userService.get(id, email));
+            return ResponseEntity.ok(categoryService.get(id));
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
@@ -33,15 +35,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> postUser(@RequestBody @Valid UserDTO userDTO) {
-        return ResponseEntity.ok(userService.post(userDTO));
+    public ResponseEntity<CategoryDTO> postCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
+        return ResponseEntity.ok(categoryService.post(categoryDTO));
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<UserDTO> updateUser(@RequestParam String id, @RequestBody UserDTO userDTO) {
-        userDTO.setId(id);
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestParam String id, @RequestBody CategoryDTO categoryDTO) {
         try {
-            return ResponseEntity.ok().body(userService.update(userDTO));
+            categoryDTO.setId(id);
+            return ResponseEntity.ok().body(categoryService.update(categoryDTO));
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
@@ -49,10 +51,10 @@ public class UserController {
     }
 
     @PatchMapping(path = "", consumes = "application/json-patch+json")
-    public ResponseEntity<UserDTO> patchUser(@RequestParam String id, @RequestBody UserDTO userDTO) {
-        userDTO.setId(id);
+    public ResponseEntity<CategoryDTO> patchCategory(@RequestParam String id, @RequestBody CategoryDTO categoryDTO) {
+        categoryDTO.setId(id);
         try {
-            return ResponseEntity.ok(userService.patch(userDTO));
+            return ResponseEntity.ok(categoryService.patch(categoryDTO));
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
@@ -60,10 +62,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteUser(@RequestParam String id) {
+    public ResponseEntity<String> deleteCategory(@RequestParam String id) {
         try {
-            this.userService.delete(id);
-            return ResponseEntity.ok("User deleted successfully");
+            this.categoryService.delete(id);
+            return ResponseEntity.ok("Category deleted successfully");
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);

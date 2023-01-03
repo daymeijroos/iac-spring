@@ -30,8 +30,10 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests((auth) -> {
                             try {
-                                auth
-                                        .anyRequest().authenticated();
+                                auth.anyRequest()
+                                        .authenticated()
+                                        .and()
+                                        .cors();
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }

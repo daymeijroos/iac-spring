@@ -2,10 +2,7 @@ package com.daymeijroos.iacspring.model;
 
 import com.daymeijroos.iacspring.enums.Country;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "shipping_details")
 public class ShippingDetails {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -23,14 +20,18 @@ public class ShippingDetails {
     private String id;
 
     @NotNull(message = "User cannot be null")
-    @OneToOne
-    private User user;
+    private String userId;
 
     @NotBlank(message = "First name cannot be empty")
     private String firstName;
 
     @NotBlank(message = "Last name cannot be empty")
     private String lastName;
+
+    @NotBlank(message = "E-mail address cannot be empty")
+    @Email(message = "This is not a valid E-mail address")
+    @Column(unique = true)
+    private String email;
 
     @NotBlank(message = "Phone number cannot be empty")
     @Size(min = 10, max = 10, message = "Length does not match a regular phone number")

@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "order")
 public class Order {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -25,10 +25,8 @@ public class Order {
     @Column(columnDefinition = "VARCHAR(255)")
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
     @NotNull(message="User cannot be null.")
-    private User user;
+    private String userId;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

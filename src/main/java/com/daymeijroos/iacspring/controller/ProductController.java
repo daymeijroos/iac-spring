@@ -25,7 +25,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<ProductDTO>> getProducts(@RequestParam(required = false) String id, @AuthenticationPrincipal OidcUser principal) {
+    public ResponseEntity<List<ProductDTO>> getProduct(@RequestParam(required = false) String id, @AuthenticationPrincipal OidcUser principal) {
         try {
             return ResponseEntity.ok(productService.get(id));
         } catch (ResourceNotFoundException e) {

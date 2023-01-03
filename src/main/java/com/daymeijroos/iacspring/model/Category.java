@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(generator = "uuid2")
