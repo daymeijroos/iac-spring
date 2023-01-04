@@ -1,6 +1,7 @@
 package com.daymeijroos.iacspring.mapper;
 
 import com.daymeijroos.iacspring.dto.CategoryDTO;
+import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.model.Category;
 import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;

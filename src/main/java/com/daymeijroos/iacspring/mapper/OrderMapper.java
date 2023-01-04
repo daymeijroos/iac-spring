@@ -27,13 +27,15 @@ public class OrderMapper {
         this.shippingDetailsMapper = shippingDetailsMapper;
     }
 
-    public Order fromDTOToEntity(@Nonnull PlaceOrderDTO placeOrderDTO) throws ResourceNotFoundException {
+    public Order fromDTOToEntity(@Nonnull PlaceOrderDTO placeOrderDTO) {
         Order order = new Order();
         order.setId(placeOrderDTO.getId());
         order.setUserId((placeOrderDTO.getUserId()));
         List<Product> products = new ArrayList<>();
         for (String productId : placeOrderDTO.getProductIds()) {
-            products.add(productDAO.getById(productId));
+            try {
+                products.add(productDAO.getById(productId));
+            } catch (ResourceNotFoundException ignored) {};
         }
         order.setProducts(products);
 

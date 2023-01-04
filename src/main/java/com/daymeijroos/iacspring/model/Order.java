@@ -22,7 +22,7 @@ public class Order {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "VARCHAR(36)")
     private String id;
 
     @NotNull(message="User cannot be null.")
