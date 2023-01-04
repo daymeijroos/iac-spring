@@ -4,7 +4,6 @@ drop table if exists product cascade;
 drop table if exists category cascade;
 drop table if exists shipping_details cascade;
 
-
 CREATE TABLE category (
     id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
     name VARCHAR(255) NOT NULL,
