@@ -31,7 +31,7 @@ public class Product {
     private Float price;
 
     @NotBlank(message="ImageURL cannot be empty.")
-    private String imageURL;
+    private String imageUrl;
 
     @ManyToOne
     @NotNull(message="Category cannot be empty")

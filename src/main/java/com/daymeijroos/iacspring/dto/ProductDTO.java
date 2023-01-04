@@ -17,7 +17,7 @@ public class ProductDTO {
     private Float price;
 
     @NotBlank(message="Image cannot be empty.")
-    private String imageURL;
+    private String imageUrl;
 
     @NotBlank(message="Category Cannot be empty.")
     private CategoryDTO category;

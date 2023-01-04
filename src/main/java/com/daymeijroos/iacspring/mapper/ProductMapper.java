@@ -20,7 +20,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
-        product.setImageURL(productDTO.getImageURL());
+        product.setImageUrl(productDTO.getImageUrl());
 
         return product;
     }
@@ -32,7 +32,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
         productDTO.setName(product.getName());
         productDTO.setDescription(product.getDescription());
         productDTO.setPrice(product.getPrice());
-        productDTO.setImageURL(product.getImageURL());
+        productDTO.setImageUrl(product.getImageUrl());
 
         return productDTO;
     }

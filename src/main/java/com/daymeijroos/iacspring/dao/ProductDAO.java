@@ -45,7 +45,7 @@ public class ProductDAO implements DAO<Product>{
         if (productRequest.getName() != null) {product.setName(productRequest.getName());}
         if (productRequest.getDescription() != null) {product.setDescription(productRequest.getDescription());}
         if (productRequest.getPrice() != null) {product.setPrice(productRequest.getPrice());}
-        if (productRequest.getImageURL() != null) {product.setImageURL(productRequest.getImageURL());}
+        if (productRequest.getImageUrl() != null) {product.setImageUrl(productRequest.getImageUrl());}
         return productRepository.save(product);
     }
 
