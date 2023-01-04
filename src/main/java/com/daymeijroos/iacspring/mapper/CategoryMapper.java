@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class CategoryMapper implements Mapper<Category, CategoryDTO> {
-    public ProductMapper productMapper;
+    private final ProductMapper productMapper;
 
     @Autowired
     public CategoryMapper(ProductMapper productMapper) {

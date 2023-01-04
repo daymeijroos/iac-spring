@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderMapper {
-    ProductMapper productMapper;
-    ShippingDetailsMapper shippingDetailsMapper;
-    ProductDAO productDAO;
+    private final ProductMapper productMapper;
+    private final ShippingDetailsMapper shippingDetailsMapper;
+    private final ProductDAO productDAO;
 
     @Autowired
     public OrderMapper(ProductDAO productDAO, ProductMapper productMapper, ShippingDetailsMapper shippingDetailsMapper) {
@@ -33,7 +33,7 @@ public class OrderMapper {
         order.setUserId((placeOrderDTO.getUserId()));
         List<Product> products = new ArrayList<>();
         for (String productId : placeOrderDTO.getProductIds()) {
-            Product product = productDAO.getById(productId);
+            products.add(productDAO.getById(productId));
         }
         order.setProducts(products);
 
