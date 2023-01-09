@@ -1,6 +1,6 @@
 package com.daymeijroos.iacspring.repository;
 
-import com.daymeijroos.iacspring.model.Category;
+import com.daymeijroos.iacspring.Category.Category;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

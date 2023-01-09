@@ -1,6 +1,6 @@
 package com.daymeijroos.iacspring.config;
 
-import com.daymeijroos.iacspring.formatter.ProductFilterFormatter;
+import com.daymeijroos.iacspring.Product.ProductFilterFormatter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

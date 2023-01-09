@@ -1,7 +1,6 @@
 package com.daymeijroos.iacspring.repository;
 
-import com.daymeijroos.iacspring.model.Admin;
-import com.daymeijroos.iacspring.model.ShippingDetails;
+import com.daymeijroos.iacspring.Admin.Admin;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
