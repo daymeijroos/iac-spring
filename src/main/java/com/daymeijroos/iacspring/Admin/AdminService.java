@@ -1,6 +1,5 @@
 package com.daymeijroos.iacspring.Admin;
 
-import com.daymeijroos.iacspring.Admin.AdminDAO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

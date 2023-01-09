@@ -28,10 +28,10 @@ public class AdminDAO implements DAO<Admin> {
         }
     }
 
-    public Admin getByUserId(String userId) throws ResourceNotFoundException {
+    public void getByUserId(String userId) throws ResourceNotFoundException {
         Optional<Admin> result = this.adminRepository.findByUserId(userId);
         if(result.isPresent()) {
-            return result.get();
+            result.get();
         } else {
             throw new ResourceNotFoundException("Admin", userId);
         }

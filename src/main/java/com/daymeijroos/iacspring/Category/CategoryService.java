@@ -1,10 +1,6 @@
 package com.daymeijroos.iacspring.Category;
 
-import com.daymeijroos.iacspring.Category.CategoryDAO;
-import com.daymeijroos.iacspring.Category.CategoryDTO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
-import com.daymeijroos.iacspring.Category.CategoryMapper;
-import com.daymeijroos.iacspring.Category.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

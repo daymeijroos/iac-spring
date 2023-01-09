@@ -34,7 +34,7 @@ public class OrderMapper {
         for (String productId : orderDTOIn.getProductIds()) {
             try {
                 products.add(productDAO.getById(productId));
-            } catch (ResourceNotFoundException ignored) {};
+            } catch (ResourceNotFoundException ignored) {}
         }
         order.setProducts(products);
 
