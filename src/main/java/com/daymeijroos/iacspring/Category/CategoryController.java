@@ -22,11 +22,14 @@ public class CategoryController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<CategoryDTO>> getCategory(@RequestParam(required = false) String id) {
-        try {
-            return ResponseEntity.ok(categoryService.get(id));
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        if (id != null) {
+            try {
+                return ResponseEntity.ok(categoryService.getById(id));
+            } catch (ResourceNotFoundException e) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, e.getMessage(), e);
+            }
         }
+        return ResponseEntity.ok(categoryService.get());
     }
 }

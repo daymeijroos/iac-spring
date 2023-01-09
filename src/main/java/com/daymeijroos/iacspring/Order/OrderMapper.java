@@ -26,12 +26,12 @@ public class OrderMapper {
         this.shippingDetailsMapper = shippingDetailsMapper;
     }
 
-    public Order fromDTOToEntity(@Nonnull PlaceOrderDTO placeOrderDTO) {
+    public Order fromDTOToEntity(@Nonnull OrderDTOIn orderDTOIn) {
         Order order = new Order();
-        order.setId(placeOrderDTO.getId());
-        order.setUserId((placeOrderDTO.getUserId()));
+        order.setId(orderDTOIn.getId());
+        order.setUserId((orderDTOIn.getUserId()));
         List<Product> products = new ArrayList<>();
-        for (String productId : placeOrderDTO.getProductIds()) {
+        for (String productId : orderDTOIn.getProductIds()) {
             try {
                 products.add(productDAO.getById(productId));
             } catch (ResourceNotFoundException ignored) {};
@@ -41,15 +41,15 @@ public class OrderMapper {
         return order;
     }
 
-    public GetOrderDTO fromEntityToDTO(@Nonnull Order order) {
-        GetOrderDTO getOrderDTO = new GetOrderDTO();
-        getOrderDTO.setId(order.getId());
-        getOrderDTO.setUserId(order.getUserId());
-        getOrderDTO.setProducts(order.getProducts().stream().map(productMapper::fromEntityToDTO).collect(Collectors.toList()));
-        getOrderDTO.setPaymentStatus(order.getPaymentStatus());
-        getOrderDTO.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
-        getOrderDTO.setShippingStatus(order.getShippingStatus());
-        getOrderDTO.setTotalPrice(order.getTotalPrice());
-        return getOrderDTO;
+    public OrderDTOOut fromEntityToDTO(@Nonnull Order order) {
+        OrderDTOOut orderDTOOut = new OrderDTOOut();
+        orderDTOOut.setId(order.getId());
+        orderDTOOut.setUserId(order.getUserId());
+        orderDTOOut.setProducts(order.getProducts().stream().map(productMapper::fromEntityToDTO).collect(Collectors.toList()));
+        orderDTOOut.setPaymentStatus(order.getPaymentStatus());
+        orderDTOOut.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
+        orderDTOOut.setShippingStatus(order.getShippingStatus());
+        orderDTOOut.setTotalPrice(order.getTotalPrice());
+        return orderDTOOut;
     }
 }

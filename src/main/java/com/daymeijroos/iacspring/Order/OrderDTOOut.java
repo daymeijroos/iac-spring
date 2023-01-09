@@ -10,7 +10,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class GetOrderDTO {
+public class OrderDTOOut {
     private String id;
 
     @NotBlank(message = "User ID cannot be empty.")

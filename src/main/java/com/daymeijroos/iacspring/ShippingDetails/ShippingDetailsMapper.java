@@ -1,13 +1,11 @@
 package com.daymeijroos.iacspring.ShippingDetails;
 
-import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
-
 import jakarta.annotation.Nonnull;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ShippingDetailsMapper {
-    public ShippingDetails fromDTOToEntity(@Nonnull ShippingDetailsDTO shippingDetailsDTO) throws ResourceNotFoundException {
+    public ShippingDetails fromDTOToEntity(@Nonnull ShippingDetailsDTO shippingDetailsDTO) {
         ShippingDetails shippingDetails = new ShippingDetails();
         shippingDetails.setId(shippingDetailsDTO.getId());
         shippingDetails.setUserId(shippingDetailsDTO.getUserId());

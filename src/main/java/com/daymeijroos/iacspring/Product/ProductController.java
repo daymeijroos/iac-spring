@@ -22,11 +22,25 @@ public class ProductController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<ProductDTO>> getProduct(@RequestParam(required = false) String id, @RequestParam(required = false) String name, @RequestParam(required = false) ProductFilter filter) {
-        try {
-            return ResponseEntity.ok(productService.get(id, name, filter));
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        if (id != null) {
+            try {
+                return ResponseEntity.ok(productService.getById(id));
+            } catch (ResourceNotFoundException e) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, e.getMessage(), e);
+            }
         }
+        if (name != null) {
+            try {
+                return ResponseEntity.ok(productService.getByName(name));
+            } catch (ResourceNotFoundException e) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, e.getMessage(), e);
+            }
+        }
+        if (filter != null) {
+            return ResponseEntity.ok(productService.getByFilter(filter));
+        }
+        return ResponseEntity.ok(productService.get());
     }
 }

@@ -23,15 +23,16 @@ public class CategoryService {
         this.categoryMapper = CategoryMapper;
     }
 
-    public List<CategoryDTO> get(String id) throws ResourceNotFoundException {
-        if (id != null) {
-            List<CategoryDTO> categories = new ArrayList<>();
-            Category category = categoryDAO.getById(id);
-            categories.add(categoryMapper.fromEntityToDTO(category));
-            return categories;
-        }
+    public List<CategoryDTO> get() {
         return categoryDAO.getAll().stream().map(categoryMapper::fromEntityToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<CategoryDTO> getById(String id) throws ResourceNotFoundException {
+        List<CategoryDTO> categories = new ArrayList<>();
+        Category category = categoryDAO.getById(id);
+        categories.add(categoryMapper.fromEntityToDTO(category));
+        return categories;
     }
 
     public CategoryDTO post(CategoryDTO categoryDTO) {
