@@ -1,4 +1,4 @@
-package com.daymeijroos.iacspring.repository;
+package com.daymeijroos.iacspring.Category;
 
 import com.daymeijroos.iacspring.Category.Category;
 import jakarta.transaction.Transactional;

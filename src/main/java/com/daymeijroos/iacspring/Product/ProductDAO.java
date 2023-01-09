@@ -1,7 +1,6 @@
 package com.daymeijroos.iacspring.Product;
 
 import com.daymeijroos.iacspring.shared.DAO;
-import com.daymeijroos.iacspring.repository.ProductRepository;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

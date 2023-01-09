@@ -1,4 +1,4 @@
-package com.daymeijroos.iacspring.repository;
+package com.daymeijroos.iacspring.Order;
 
 import com.daymeijroos.iacspring.Order.Order;
 import jakarta.transaction.Transactional;

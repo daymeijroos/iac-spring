@@ -1,4 +1,4 @@
-package com.daymeijroos.iacspring.repository;
+package com.daymeijroos.iacspring.ShippingDetails;
 
 import com.daymeijroos.iacspring.ShippingDetails.ShippingDetails;
 import jakarta.transaction.Transactional;

@@ -1,4 +1,4 @@
-package com.daymeijroos.iacspring.repository;
+package com.daymeijroos.iacspring.Product;
 
 import com.daymeijroos.iacspring.Product.ProductFilter;
 import com.daymeijroos.iacspring.Product.Product;

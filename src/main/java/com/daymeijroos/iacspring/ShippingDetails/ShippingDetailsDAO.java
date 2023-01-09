@@ -2,7 +2,6 @@ package com.daymeijroos.iacspring.ShippingDetails;
 
 import com.daymeijroos.iacspring.shared.DAO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
-import com.daymeijroos.iacspring.repository.ShippingDetailsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

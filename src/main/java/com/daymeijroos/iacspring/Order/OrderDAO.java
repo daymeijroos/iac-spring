@@ -2,7 +2,6 @@ package com.daymeijroos.iacspring.Order;
 
 import com.daymeijroos.iacspring.shared.DAO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
-import com.daymeijroos.iacspring.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

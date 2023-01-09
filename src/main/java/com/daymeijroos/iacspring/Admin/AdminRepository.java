@@ -1,4 +1,4 @@
-package com.daymeijroos.iacspring.repository;
+package com.daymeijroos.iacspring.Admin;
 
 import com.daymeijroos.iacspring.Admin.Admin;
 import jakarta.transaction.Transactional;
