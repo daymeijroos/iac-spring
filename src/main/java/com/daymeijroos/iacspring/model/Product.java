@@ -1,5 +1,6 @@
 package com.daymeijroos.iacspring.model;
 
+import com.daymeijroos.iacspring.enums.ProductFilter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -36,4 +37,7 @@ public class Product {
     @ManyToOne
     @NotNull(message="Category cannot be empty")
     private Category category;
+
+    @Enumerated(EnumType.STRING)
+    private ProductFilter filter = ProductFilter.NONE;
 }

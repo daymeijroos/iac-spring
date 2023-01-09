@@ -2,6 +2,7 @@ package com.daymeijroos.iacspring.service;
 
 import com.daymeijroos.iacspring.dao.ProductDAO;
 import com.daymeijroos.iacspring.dto.ProductDTO;
+import com.daymeijroos.iacspring.enums.ProductFilter;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.mapper.ProductMapper;
 import com.daymeijroos.iacspring.model.Product;
@@ -23,12 +24,21 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public List<ProductDTO> get(String id) throws ResourceNotFoundException {
+    public List<ProductDTO> get(String id, String name, ProductFilter filter) throws ResourceNotFoundException {
         if (id != null) {
             List<ProductDTO> products = new ArrayList<>();
             Product product = productDAO.getById(id);
             products.add(productMapper.fromEntityToDTO(product));
             return products;
+        }
+        if (name != null) {
+            List<ProductDTO> products = new ArrayList<>();
+            Product product = productDAO.getByName(name);
+            products.add(productMapper.fromEntityToDTO(product));
+            return products;
+        }
+        if (filter != null) {
+            return productDAO.getByFilter(filter).stream().map(productMapper::fromEntityToDTO).collect(Collectors.toList());
         }
         return productDAO.getAll().stream().map(productMapper::fromEntityToDTO)
                 .collect(Collectors.toList());

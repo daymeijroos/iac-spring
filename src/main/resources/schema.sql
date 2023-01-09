@@ -3,6 +3,13 @@ drop table if exists `order` cascade;
 drop table if exists product cascade;
 drop table if exists category cascade;
 drop table if exists shipping_details cascade;
+drop table if exists `admin` cascade;
+
+CREATE TABLE `admin` (
+    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    user_id VARCHAR(255) NOT NULL UNIQUE
+);
+
 
 CREATE TABLE category (
     id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
@@ -17,6 +24,7 @@ CREATE TABLE product (
     price DOUBLE PRECISION NOT NULL,
     image_url VARCHAR(255) NOT NULL,
     category_id VARCHAR(36) NOT NULL,
+    filter ENUM('NONE', 'LANDING', 'FEATURED') DEFAULT 'NONE',
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
 

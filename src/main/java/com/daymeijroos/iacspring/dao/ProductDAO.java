@@ -1,5 +1,6 @@
 package com.daymeijroos.iacspring.dao;
 
+import com.daymeijroos.iacspring.enums.ProductFilter;
 import com.daymeijroos.iacspring.repository.ProductRepository;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.model.Product;
@@ -31,6 +32,19 @@ public class ProductDAO implements DAO<Product>{
         }else {
             throw new ResourceNotFoundException("Product", id);
         }
+    }
+
+    public Product getByName(String name) throws ResourceNotFoundException {
+        Optional<Product> result = productRepository.findProductByName(name);
+        if(result.isPresent()) {
+            return result.get();
+        }else {
+            throw new ResourceNotFoundException("Product", name);
+        }
+    }
+
+    public List<Product> getByFilter(ProductFilter filter) {
+        return productRepository.findProductsByFilter(filter);
     }
 
     @Override

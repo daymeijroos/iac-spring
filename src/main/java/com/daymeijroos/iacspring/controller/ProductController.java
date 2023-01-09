@@ -1,6 +1,7 @@
 package com.daymeijroos.iacspring.controller;
 
 import com.daymeijroos.iacspring.dto.ProductDTO;
+import com.daymeijroos.iacspring.enums.ProductFilter;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import com.daymeijroos.iacspring.service.ProductService;
 
@@ -25,47 +26,9 @@ public class ProductController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<ProductDTO>> getProduct(@RequestParam(required = false) String id, @AuthenticationPrincipal OidcUser principal) {
+    public ResponseEntity<List<ProductDTO>> getProduct(@RequestParam(required = false) String id, @RequestParam(required = false) String name, @RequestParam(required = false) ProductFilter filter) {
         try {
-            return ResponseEntity.ok(productService.get(id));
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage(), e);
-        }
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<ProductDTO> postProduct(@RequestBody @Valid ProductDTO productDTO) {
-        return ResponseEntity.ok(productService.post(productDTO));
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<ProductDTO> updateProduct(@RequestParam String id, @RequestBody ProductDTO productDTO) {
-        try {
-            productDTO.setId(id);
-            return ResponseEntity.ok().body(productService.update(productDTO));
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage(), e);
-        }
-    }
-
-    @PatchMapping(path = "", consumes = "application/json-patch+json")
-    public ResponseEntity<ProductDTO> patchProduct(@RequestParam String id, @RequestBody ProductDTO productDTO) {
-        productDTO.setId(id);
-        try {
-            return ResponseEntity.ok(productService.patch(productDTO));
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage(), e);
-        }
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteProduct(@RequestParam String id) {
-        try {
-            this.productService.delete(id);
-            return ResponseEntity.ok("Product deleted successfully");
+            return ResponseEntity.ok(productService.get(id, name, filter));
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);

@@ -25,10 +25,10 @@ public class CategoryService {
 
     public List<CategoryDTO> get(String id) throws ResourceNotFoundException {
         if (id != null) {
-            List<CategoryDTO> categorys = new ArrayList<>();
+            List<CategoryDTO> categories = new ArrayList<>();
             Category category = categoryDAO.getById(id);
-            categorys.add(categoryMapper.fromEntityToDTO(category));
-            return categorys;
+            categories.add(categoryMapper.fromEntityToDTO(category));
+            return categories;
         }
         return categoryDAO.getAll().stream().map(categoryMapper::fromEntityToDTO)
                 .collect(Collectors.toList());

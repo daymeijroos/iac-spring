@@ -33,6 +33,7 @@ public class SecurityConfig {
                                 auth
                                         .requestMatchers("/order/**").authenticated()
                                         .requestMatchers("/shippingDetails/**").authenticated()
+                                        .requestMatchers("/admin/category/**").hasAuthority("SCOPE_admin:category")
                                         .anyRequest().permitAll()
                                         .and()
                                         .cors();

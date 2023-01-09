@@ -24,7 +24,6 @@ public class ShippingDetailsDTO {
     @NotBlank(message = "Phone number cannot be empty")
     @Size(min = 10, max = 10, message = "Length does not match a regular phone number")
     @Pattern(regexp = "^[0-9]*$")
-    @Column(columnDefinition = "VARCHAR(10)")
     private String phone;
 
     @NotNull(message = "Country cannot be null")
@@ -35,7 +34,6 @@ public class ShippingDetailsDTO {
 
     @NotBlank(message = "Postal code cannot be empty")
     @Size(min = 4, max = 10, message = "Length does not match a postal code")
-    @Column(columnDefinition = "VARCHAR(10)")
     private String postalCode;
 
     @NotBlank(message = "Address cannot be empty")
