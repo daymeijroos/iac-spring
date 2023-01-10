@@ -19,31 +19,31 @@ public class OrderService {
         this.orderMapper = OrderMapper;
     }
 
-    public List<OrderDTOOut> get() {
+    public List<OrderDTO> get() {
         return orderDAO.getAll().stream().map(orderMapper::fromEntityToDTO)
                 .collect(Collectors.toList());
     }
 
-    public List<OrderDTOOut> getById(String id) throws ResourceNotFoundException {
-        List<OrderDTOOut> orders = new ArrayList<>();
+    public List<OrderDTO> getById(String id) throws ResourceNotFoundException {
+        List<OrderDTO> orders = new ArrayList<>();
         Order order = orderDAO.getById(id);
         orders.add(orderMapper.fromEntityToDTO(order));
         return orders;
     }
 
-    public OrderDTOOut post(OrderDTOIn orderDTO) {
+    public OrderDTO post(OrderDTO orderDTO) throws ResourceNotFoundException {
         Order order = orderMapper.fromDTOToEntity(orderDTO);
         Order savedOrder = orderDAO.saveToDatabase(order);
         return orderMapper.fromEntityToDTO(savedOrder);
     }
 
-    public OrderDTOOut update(OrderDTOIn orderDTO) throws ResourceNotFoundException {
+    public OrderDTO update(OrderDTO orderDTO) throws ResourceNotFoundException {
         Order Order = orderMapper.fromDTOToEntity(orderDTO);
         Order updatedOrder = orderDAO.update(Order.getId(), Order);
         return orderMapper.fromEntityToDTO(updatedOrder);
     }
 
-    public OrderDTOOut patch(OrderDTOIn orderDTO) throws ResourceNotFoundException {
+    public OrderDTO patch(OrderDTO orderDTO) throws ResourceNotFoundException {
         Order order = orderMapper.fromDTOToEntity(orderDTO);
         Order updatedOrder = orderDAO.update(order.getId(), order);
         return orderMapper.fromEntityToDTO(updatedOrder);

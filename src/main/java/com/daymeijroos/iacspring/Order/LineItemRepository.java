@@ -7,14 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 @Transactional
-public interface OrderRepository extends JpaRepository<Order, String> {
+public interface LineItemRepository extends JpaRepository<LineItem, String> {
     @Modifying
     @Query("delete from Order p where p.id = ?1")
     void deleteById(@NonNull String id);
-
-    List<Order> findByUserId(String userId);
 }

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.sound.sampled.Line;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,11 +35,9 @@ public class Order {
 
     private Date dateModified = Date.valueOf(LocalDate.now());
 
-    @ManyToMany
-    @JoinTable(name = "order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<LineItem> lineItems = new ArrayList<>();
 
     @Enumerated
     private PaymentStatus paymentStatus = PaymentStatus.UNPAID;
@@ -52,8 +51,8 @@ public class Order {
 
     public Float getTotalPrice() {
         float totalPrice = 0;
-        for (Product product : products) {
-            totalPrice += product.getPrice();
+        for (LineItem lineItem : lineItems) {
+            totalPrice += lineItem.product.getPrice();
         }
         return totalPrice;
     }

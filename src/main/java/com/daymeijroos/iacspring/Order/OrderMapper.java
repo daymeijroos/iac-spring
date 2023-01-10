@@ -15,41 +15,36 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderMapper {
-    private final ProductMapper productMapper;
+    private final LineItemMapper lineItemMapper;
     private final ShippingDetailsMapper shippingDetailsMapper;
-    private final ProductDAO productDAO;
 
     @Autowired
-    public OrderMapper(ProductDAO productDAO, ProductMapper productMapper, ShippingDetailsMapper shippingDetailsMapper) {
-        this.productDAO = productDAO;
-        this.productMapper = productMapper;
+    public OrderMapper(LineItemMapper lineItemMapper, ShippingDetailsMapper shippingDetailsMapper) {
+        this.lineItemMapper = lineItemMapper;
         this.shippingDetailsMapper = shippingDetailsMapper;
     }
 
-    public Order fromDTOToEntity(@Nonnull OrderDTOIn orderDTOIn) {
+    public Order fromDTOToEntity(@Nonnull OrderDTO orderDTO) throws ResourceNotFoundException {
         Order order = new Order();
-        order.setId(orderDTOIn.getId());
-        order.setUserId((orderDTOIn.getUserId()));
-        List<Product> products = new ArrayList<>();
-        for (String productId : orderDTOIn.getProductIds()) {
-            try {
-                products.add(productDAO.getById(productId));
-            } catch (ResourceNotFoundException ignored) {}
+        order.setId(orderDTO.getId());
+        order.setUserId((orderDTO.getUserId()));
+        List<LineItem> lineItems = new ArrayList<>();
+        for (LineItemDTO lineItemDTO : orderDTO.getLineItems()) {
+            lineItems.add(lineItemMapper.fromDTOToEntity(lineItemDTO));
         }
-        order.setProducts(products);
-
+        order.setLineItems(lineItems);
         return order;
     }
 
-    public OrderDTOOut fromEntityToDTO(@Nonnull Order order) {
-        OrderDTOOut orderDTOOut = new OrderDTOOut();
-        orderDTOOut.setId(order.getId());
-        orderDTOOut.setUserId(order.getUserId());
-        orderDTOOut.setProducts(order.getProducts().stream().map(productMapper::fromEntityToDTO).collect(Collectors.toList()));
-        orderDTOOut.setPaymentStatus(order.getPaymentStatus());
-        orderDTOOut.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
-        orderDTOOut.setShippingStatus(order.getShippingStatus());
-        orderDTOOut.setTotalPrice(order.getTotalPrice());
-        return orderDTOOut;
+    public OrderDTO fromEntityToDTO(@Nonnull Order order) {
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setId(order.getId());
+        orderDTO.setUserId(order.getUserId());
+        orderDTO.setLineItems(order.getLineItems().stream().map(lineItemMapper::fromEntityToDTO).collect(Collectors.toList()));
+        orderDTO.setPaymentStatus(order.getPaymentStatus());
+        orderDTO.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
+        orderDTO.setShippingStatus(order.getShippingStatus());
+        orderDTO.setTotalPrice(order.getTotalPrice());
+        return orderDTO;
     }
 }

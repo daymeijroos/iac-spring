@@ -1,4 +1,4 @@
-drop table if exists order_product cascade;
+drop table if exists line_item cascade;
 drop table if exists `order` cascade;
 drop table if exists product cascade;
 drop table if exists category cascade;
@@ -52,10 +52,11 @@ CREATE TABLE `order` (
     FOREIGN KEY (shipping_details_id) REFERENCES shipping_details(id)
 );
 
-CREATE TABLE order_product (
+CREATE TABLE line_item (
+    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
     order_id VARCHAR(36) NOT NULL,
     product_id VARCHAR(36) NOT NULL,
-    PRIMARY KEY (order_id, product_id),
+    quantity INT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES `order` (id),
     FOREIGN KEY (product_id) REFERENCES product (id)
 );

@@ -23,7 +23,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<OrderDTOOut>> getOrder(@RequestParam(required = false) String id) {
+    public ResponseEntity<List<OrderDTO>> getOrder(@RequestParam(required = false) String id) {
         if (id != null) {
             try {
                 return ResponseEntity.ok(orderService.getById(id));
