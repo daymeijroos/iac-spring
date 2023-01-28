@@ -12,9 +12,5 @@ import java.util.List;
 @Repository
 @Transactional
 public interface OrderRepository extends JpaRepository<Order, String> {
-    @Modifying
-    @Query("delete from Order p where p.id = ?1")
-    void deleteById(@NonNull String id);
-
     List<Order> findByUserId(String userId);
 }

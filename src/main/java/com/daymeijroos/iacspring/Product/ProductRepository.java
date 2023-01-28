@@ -15,10 +15,6 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface ProductRepository extends JpaRepository<Product, String> {
-    @Modifying
-    @Query("delete from Product p where p.id = ?1")
-    void deleteById(@NonNull String id);
-
     Optional<Product> findProductByName(String name);
 
     List<Product> findProductsByFilter(ProductFilter filter);

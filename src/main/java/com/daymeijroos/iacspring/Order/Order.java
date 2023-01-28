@@ -1,15 +1,14 @@
 package com.daymeijroos.iacspring.Order;
 
-import com.daymeijroos.iacspring.Product.Product;
 import com.daymeijroos.iacspring.ShippingDetails.ShippingDetails;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.sound.sampled.Line;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +28,15 @@ public class Order {
     @NotNull(message="User cannot be null.")
     private String userId;
 
-    @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private Date dateCreated = Date.valueOf(LocalDate.now());
+    private Date dateCreated;
 
-    private Date dateModified = Date.valueOf(LocalDate.now());
+    @Setter(AccessLevel.NONE)
+    private Date dateModified;
 
     @OneToMany
     @JoinColumn(name = "order_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<LineItem> lineItems = new ArrayList<>();
 
     @Enumerated

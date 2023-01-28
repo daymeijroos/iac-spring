@@ -4,10 +4,8 @@ import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -22,17 +20,19 @@ public class ShippingDetailsController {
         this.shippingDetailsService = shippingDetailsService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<ShippingDetailsDTO>> getShippingDetails(@RequestParam(required = false) String id) {
-        if (id != null) {
-            try {
-                return ResponseEntity.ok(shippingDetailsService.getById(id));
-            } catch (ResourceNotFoundException e) {
-                throw new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, e.getMessage(), e);
-            }
+    @GetMapping(value = "")
+    public ResponseEntity<ShippingDetailsDTO> getShippingDetails(Authentication authentication) {
+        try {
+            return ResponseEntity.ok(shippingDetailsService.getByUserId(authentication.getName()));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
+    }
 
-        return ResponseEntity.ok(shippingDetailsService.get());
+    @PostMapping(value = "")
+    public ResponseEntity<ShippingDetailsDTO> postShippingDetails(ShippingDetailsDTO shippingDetailsDTO, Authentication authentication) {
+        shippingDetailsDTO.setUserId(authentication.getName());
+        return ResponseEntity.ok(shippingDetailsService.post(shippingDetailsDTO));
     }
 }

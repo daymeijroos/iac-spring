@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 public class ShippingDetailsMapper {
     public ShippingDetails fromDTOToEntity(@Nonnull ShippingDetailsDTO shippingDetailsDTO) {
         ShippingDetails shippingDetails = new ShippingDetails();
-        shippingDetails.setId(shippingDetailsDTO.getId());
         shippingDetails.setUserId(shippingDetailsDTO.getUserId());
         shippingDetails.setFirstName(shippingDetailsDTO.getFirstName());
         shippingDetails.setLastName(shippingDetailsDTO.getLastName());
@@ -21,8 +20,6 @@ public class ShippingDetailsMapper {
 
     public ShippingDetailsDTO fromEntityToDTO(@Nonnull ShippingDetails shippingDetails) {
         ShippingDetailsDTO shippingDetailsDTO = new ShippingDetailsDTO();
-        shippingDetailsDTO.setId(shippingDetails.getId());
-        shippingDetailsDTO.setUserId(shippingDetails.getUserId());
         shippingDetailsDTO.setFirstName(shippingDetails.getFirstName());
         shippingDetailsDTO.setLastName(shippingDetails.getLastName());
         shippingDetailsDTO.setPhone(shippingDetails.getPhone());

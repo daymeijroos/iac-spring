@@ -12,9 +12,5 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface ShippingDetailsRepository extends JpaRepository<ShippingDetails, String> {
-    @Modifying
-    @Query("delete from ShippingDetails p where p.id = ?1")
-    void deleteById(@NonNull String id);
-
-    Optional<ShippingDetails> findByUserId(String userId);
+    Optional<ShippingDetails> findFirstByUserId(String userId);
 }

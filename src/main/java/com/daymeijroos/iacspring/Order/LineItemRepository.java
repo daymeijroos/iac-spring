@@ -10,7 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public interface LineItemRepository extends JpaRepository<LineItem, String> {
-    @Modifying
-    @Query("delete from Order p where p.id = ?1")
-    void deleteById(@NonNull String id);
 }

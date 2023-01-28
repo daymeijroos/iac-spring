@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -18,11 +19,15 @@ public class OrderDTO {
     @NotEmpty(message = "Product IDs list cannot be empty")
     private List<LineItemDTO> lineItems;
 
-    PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus;
 
-    ShippingDetailsDTO shippingDetails;
+    private ShippingDetailsDTO shippingDetails;
 
-    ShippingStatus shippingStatus;
+    private Date dateCreated;
 
-    Float TotalPrice;
+    private Date dateModified;
+
+    private ShippingStatus shippingStatus;
+
+    private Float TotalPrice;
 }

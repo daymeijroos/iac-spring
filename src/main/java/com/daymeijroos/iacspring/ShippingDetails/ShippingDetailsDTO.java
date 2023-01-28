@@ -1,5 +1,6 @@
 package com.daymeijroos.iacspring.ShippingDetails;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -8,9 +9,7 @@ import lombok.Data;
 
 @Data
 public class ShippingDetailsDTO {
-    private String id;
-
-    @NotBlank(message = "User ID cannot be empty.")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userId;
 
     @NotBlank(message = "First name cannot be empty.")

@@ -24,6 +24,8 @@ public class OrderMapper {
         this.shippingDetailsMapper = shippingDetailsMapper;
     }
 
+
+
     public Order fromDTOToEntity(@Nonnull OrderDTO orderDTO) throws ResourceNotFoundException {
         Order order = new Order();
         order.setId(orderDTO.getId());
@@ -36,6 +38,14 @@ public class OrderMapper {
         return order;
     }
 
+    public Order fromDTOToEntityIncludeDetails(@Nonnull OrderDTO orderDTO) throws ResourceNotFoundException {
+        Order order = fromDTOToEntity(orderDTO);
+        order.setPaymentStatus(orderDTO.getPaymentStatus());
+        order.setShippingDetails(shippingDetailsMapper.fromDTOToEntity(orderDTO.getShippingDetails()));
+        order.setShippingStatus(orderDTO.getShippingStatus());
+        return order;
+    }
+
     public OrderDTO fromEntityToDTO(@Nonnull Order order) {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
@@ -45,6 +55,8 @@ public class OrderMapper {
         orderDTO.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
         orderDTO.setShippingStatus(order.getShippingStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
+        orderDTO.setDateCreated(order.getDateCreated());
+        orderDTO.setDateModified(order.getDateModified());
         return orderDTO;
     }
 }

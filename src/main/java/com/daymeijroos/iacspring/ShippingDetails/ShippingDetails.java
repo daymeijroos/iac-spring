@@ -1,5 +1,6 @@
 package com.daymeijroos.iacspring.ShippingDetails;
 
+import com.daymeijroos.iacspring.Order.Order;
 import com.daymeijroos.iacspring.ShippingDetails.Country;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -19,7 +20,6 @@ public class ShippingDetails {
     @Column(columnDefinition = "VARCHAR(36)")
     private String id;
 
-    @NotNull(message = "User cannot be null")
     private String userId;
 
     @NotBlank(message = "First name cannot be empty")
@@ -40,7 +40,7 @@ public class ShippingDetails {
     private String phone;
 
     @NotNull(message = "Country cannot be null")
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Country country;
 
     @NotBlank(message = "City cannot be empty")

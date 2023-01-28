@@ -19,7 +19,7 @@ public class ShippingDetailsDAO implements DAO<ShippingDetails> {
     }
 
     public ShippingDetails getByUserId(String id) throws ResourceNotFoundException {
-        Optional<ShippingDetails> result = shippingDetailsRepository.findByUserId(id);
+        Optional<ShippingDetails> result = shippingDetailsRepository.findFirstByUserId(id);
         if(result.isPresent()) {
             return result.get();
         }else {

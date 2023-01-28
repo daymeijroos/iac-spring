@@ -12,9 +12,5 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface AdminRepository extends JpaRepository<Admin, String> {
-    @Modifying
-    @Query("delete from ShippingDetails p where p.id = ?1")
-    void deleteById(@NonNull String id);
-
     Optional<Admin> findByUserId(String userId);
 }

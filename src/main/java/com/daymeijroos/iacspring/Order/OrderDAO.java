@@ -48,7 +48,6 @@ public class OrderDAO implements DAO<Order> {
     public Order update(String id, Order orderRequest) throws ResourceNotFoundException {
         Order order = this.orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order", id));
-        order.setDateModified(Date.valueOf(LocalDate.now()));
         order.setPaymentStatus(orderRequest.getPaymentStatus());
         order.setShippingStatus(orderRequest.getShippingStatus());
         return orderRepository.save(order);

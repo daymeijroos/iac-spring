@@ -31,6 +31,11 @@ public class ShippingDetailsService {
         return shippingDetailsList;
     }
 
+    public ShippingDetailsDTO getByUserId(String id) throws ResourceNotFoundException {
+        ShippingDetails shippingDetails = shippingDetailsDAO.getByUserId(id);
+        return shippingDetailsMapper.fromEntityToDTO(shippingDetails);
+    }
+
     public ShippingDetailsDTO post(ShippingDetailsDTO shippingDetailsDTO) {
         ShippingDetails shippingDetails = shippingDetailsMapper.fromDTOToEntity(shippingDetailsDTO);
         ShippingDetails savedShippingDetails = shippingDetailsDAO.saveToDatabase(shippingDetails);
