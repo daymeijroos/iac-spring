@@ -1,6 +1,6 @@
 INSERT INTO `admin` (user_id) VALUES ('auth0|63b6de02d53ea3596eb3ae14');
 
-INSERT INTO `shipping_details` (user_id, first_name, last_name, email, phone, country, city, postal_code, address) VALUES ('auth0|63b6de02d53ea3596eb3ae14', 'Day', 'Meijroos', 'DayMeijroos@gmail.com', '0681812486', 'EUROCEANIA', 'Voorburg', '2274TW', 'Van Halewijnlaan 300');
+INSERT INTO `shipping_details` (user_id, first_name, last_name, email, country, city, postal_code, address) VALUES ('auth0|63b6de02d53ea3596eb3ae14', 'Day', 'Meijroos', 'DayMeijroos@gmail.com', 'EUROCEANIA', 'Voorburg', '2274TW', 'Van Halewijnlaan 300');
 
 INSERT INTO `category` (name, description) VALUES ('Gathering', 'These are gathering machines');
 INSERT INTO `category` (name, description) VALUES ('Transport', 'These are transport machines');

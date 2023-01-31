@@ -13,14 +13,17 @@ import java.util.List;
 public class OrderDTO {
     private String id;
 
-    @NotBlank(message = "User ID cannot be empty.")
     private String userId;
 
-    @NotEmpty(message = "Product IDs list cannot be empty")
+    @NotEmpty(message = "Line items cannot be empty")
     private List<LineItemDTO> lineItems;
+
+    @NotNull(message = "Payment method cannot be empty")
+    private PaymentMethod paymentMethod;
 
     private PaymentStatus paymentStatus;
 
+    @NotNull(message = "Shipping details cannot be empty")
     private ShippingDetailsDTO shippingDetails;
 
     private Date dateCreated;

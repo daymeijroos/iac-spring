@@ -1,6 +1,7 @@
 package com.daymeijroos.iacspring.ShippingDetails;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -18,7 +19,7 @@ public class ShippingDetailsDTO {
     @NotBlank(message = "Last name cannot be empty")
     private String lastName;
 
-    @NotBlank(message = "Phone number cannot be empty")
+    @Nullable
     @Size(min = 10, max = 10, message = "Length does not match a regular phone number")
     @Pattern(regexp = "^[0-9]*$")
     private String phone;

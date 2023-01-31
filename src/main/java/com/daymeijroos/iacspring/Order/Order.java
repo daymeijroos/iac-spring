@@ -25,7 +25,6 @@ public class Order {
     @Column(columnDefinition = "VARCHAR(36)")
     private String id;
 
-    @NotNull(message="User cannot be null.")
     private String userId;
 
     @Setter(AccessLevel.NONE)
@@ -39,14 +38,19 @@ public class Order {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<LineItem> lineItems = new ArrayList<>();
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Payment method cannot be null")
+    private PaymentMethod paymentMethod;
+
+    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus = PaymentStatus.UNPAID;
 
     @ManyToOne
+    @NotNull(message = "Shipping details cannot be null")
     @JoinColumn(name = "shipping_details_id")
     private ShippingDetails shippingDetails;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ShippingStatus shippingStatus = ShippingStatus.UNSHIPPED;
 
     public Float getTotalPrice() {
@@ -54,6 +58,7 @@ public class Order {
         for (LineItem lineItem : lineItems) {
             totalPrice += lineItem.product.getPrice();
         }
+
         return totalPrice;
     }
 }
