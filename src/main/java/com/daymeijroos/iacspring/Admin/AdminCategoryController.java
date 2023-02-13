@@ -23,42 +23,53 @@ public class AdminCategoryController {
         this.adminService = adminService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<CategoryDTO> postCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
-        return ResponseEntity.ok(categoryService.post(categoryDTO));
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<CategoryDTO> updateCategory(@RequestParam String id, @RequestBody CategoryDTO categoryDTO) {
-        try {
-            categoryDTO.setId(id);
-            return ResponseEntity.ok().body(categoryService.update(categoryDTO));
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+    @PostMapping(value = "")
+    public ResponseEntity<CategoryDTO> postCategory(@RequestBody @Valid CategoryDTO categoryDTO, Authentication authentication) {
+        if (!this.adminService.checkForUserId(authentication.getName())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to add categories");
         }
+        return ResponseEntity.ok().body(this.categoryService.post(categoryDTO));
     }
 
-    @RequestMapping(path = "", method = RequestMethod.PATCH, consumes = "application/json-patch+json")
-    public ResponseEntity<CategoryDTO> patchCategory(@RequestParam String id, @RequestBody CategoryDTO categoryDTO) {
+    @PutMapping(value = "")
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestParam String id, @RequestBody CategoryDTO categoryDTO, Authentication authentication) {
+        if (!this.adminService.checkForUserId(authentication.getName())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to replace categories");
+        }
         categoryDTO.setId(id);
         try {
-            return ResponseEntity.ok(categoryService.patch(categoryDTO));
+            return ResponseEntity.ok().body(this.categoryService.update(categoryDTO));
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    @PatchMapping(path = "", consumes = "application/json-patch+json")
+    public ResponseEntity<CategoryDTO> patchCategory(@RequestParam String id, @RequestBody CategoryDTO categoryDTO, Authentication authentication) {
+        if (!this.adminService.checkForUserId(authentication.getName())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to edit categories");
+        }
+        categoryDTO.setId(id);
+        try {
+            return ResponseEntity.ok(this.categoryService.patch(categoryDTO));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
+    @DeleteMapping(value = "")
     public ResponseEntity<String> deleteCategory(@RequestParam String id, Authentication authentication) {
-        System.out.println("USER: " + adminService.checkForUserId(authentication.getName()));
-        //try {
-            //this.categoryService.delete(id);
+        if (!this.adminService.checkForUserId(authentication.getName())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to remove categories");
+        }
+        try {
+            this.categoryService.delete(id);
             return ResponseEntity.ok("Category deleted successfully");
-        //} catch (ResourceNotFoundException e) {
-        //    throw new ResponseStatusException(
-        //            HttpStatus.NOT_FOUND, e.getMessage(), e);
-        //}
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
     }
 }
