@@ -60,13 +60,13 @@ public class AdminProductController {
     }
 
     @DeleteMapping(value = "")
-    public ResponseEntity<String> deleteProduct(@RequestParam String id, Authentication authentication) {
+    public ResponseEntity deleteProduct(@RequestParam String id, Authentication authentication) {
         if (!this.adminService.checkForUserId(authentication.getName())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to remove products");
         }
         try {
             this.productService.delete(id);
-            return ResponseEntity.ok("Product deleted successfully");
+            return ResponseEntity.noContent().build();
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);

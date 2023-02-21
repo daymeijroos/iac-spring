@@ -45,7 +45,7 @@ public class AdminCategoryController {
         }
     }
 
-    @PatchMapping(path = "", consumes = "application/json-patch+json")
+    @PatchMapping(path = "")
     public ResponseEntity<CategoryDTO> patchCategory(@RequestParam String id, @RequestBody CategoryDTO categoryDTO, Authentication authentication) {
         if (!this.adminService.checkForUserId(authentication.getName())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to edit categories");
@@ -60,13 +60,13 @@ public class AdminCategoryController {
     }
 
     @DeleteMapping(value = "")
-    public ResponseEntity<String> deleteCategory(@RequestParam String id, Authentication authentication) {
+    public ResponseEntity deleteCategory(@RequestParam String id, Authentication authentication) {
         if (!this.adminService.checkForUserId(authentication.getName())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to remove categories");
         }
         try {
             this.categoryService.delete(id);
-            return ResponseEntity.ok("Category deleted successfully");
+            return ResponseEntity.noContent().build();
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
