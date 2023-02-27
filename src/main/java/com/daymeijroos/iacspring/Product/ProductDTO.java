@@ -23,4 +23,6 @@ public class ProductDTO {
     private String categoryId;
 
     private String categoryName;
+
+    private ProductFilter filter = ProductFilter.NONE;
 }
