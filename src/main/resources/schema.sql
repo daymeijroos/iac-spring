@@ -25,7 +25,7 @@ CREATE TABLE product (
     image_url VARCHAR(255) NOT NULL,
     category_id VARCHAR(36) NOT NULL,
     filter ENUM('NONE', 'LANDING', 'FEATURED') DEFAULT 'NONE',
-    FOREIGN KEY (category_id) REFERENCES category(id)
+    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE
 );
 
 CREATE TABLE shipping_details (
