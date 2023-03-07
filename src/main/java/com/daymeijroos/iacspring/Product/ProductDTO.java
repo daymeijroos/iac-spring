@@ -1,5 +1,6 @@
 package com.daymeijroos.iacspring.Product;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import jakarta.validation.constraints.NotBlank;
 
@@ -13,14 +14,17 @@ public class ProductDTO {
     @NotBlank(message="Description cannot be empty.")
     private String description;
 
-    @NotBlank(message="Price cannot be empty.")
+    @NotNull(message="Price cannot be null.")
     private Float price;
 
     @NotBlank(message="Image cannot be empty.")
     private String imageUrl;
 
-    @NotBlank(message="Category_name Cannot be empty.")
+    @NotBlank(message="Category id cannot be empty.")
     private String categoryId;
 
     private String categoryName;
+
+    @NotNull(message="Filter cannot be empty.")
+    private ProductFilter filter;
 }

@@ -24,6 +24,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setImageUrl(productDTO.getImageUrl());
+        product.setFilter(productDTO.getFilter());
         try {
             product.setCategory(categoryDAO.getById(productDTO.getCategoryId()));
         } catch (ResourceNotFoundException ignored) {}
@@ -40,6 +41,7 @@ public class ProductMapper implements Mapper<Product, ProductDTO> {
         productDTO.setImageUrl(product.getImageUrl());
         productDTO.setCategoryId(product.getCategory().getId());
         productDTO.setCategoryName(product.getCategory().getName());
+        productDTO.setFilter(product.getFilter());
         return productDTO;
     }
 }
