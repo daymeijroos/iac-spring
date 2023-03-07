@@ -1,9 +1,11 @@
 package com.daymeijroos.iacspring.Order;
 
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,5 +32,19 @@ public class OrderController {
             }
         }
         return ResponseEntity.ok(orderService.get());
+    }
+
+    @PostMapping(value = "")
+    public ResponseEntity<OrderDTO> postOrder(@RequestBody @Valid OrderDTO order, Authentication auth) {
+        if (auth != null) {
+            System.out.println(auth.getName());
+            order.setUserId(auth.getName());
+        }
+        try {
+            return ResponseEntity.ok(orderService.post(order));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
     }
 }

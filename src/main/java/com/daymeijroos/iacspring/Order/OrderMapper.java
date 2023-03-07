@@ -24,8 +24,6 @@ public class OrderMapper {
         this.shippingDetailsMapper = shippingDetailsMapper;
     }
 
-
-
     public Order fromDTOToEntity(@Nonnull OrderDTO orderDTO) throws ResourceNotFoundException {
         Order order = new Order();
         order.setId(orderDTO.getId());
@@ -35,13 +33,10 @@ public class OrderMapper {
             lineItems.add(lineItemMapper.fromDTOToEntity(lineItemDTO));
         }
         order.setLineItems(lineItems);
-        return order;
-    }
-
-    public Order fromDTOToEntityIncludeDetails(@Nonnull OrderDTO orderDTO) throws ResourceNotFoundException {
-        Order order = fromDTOToEntity(orderDTO);
         order.setPaymentStatus(orderDTO.getPaymentStatus());
         order.setShippingDetails(shippingDetailsMapper.fromDTOToEntity(orderDTO.getShippingDetails()));
+        order.setPaymentStatus(orderDTO.getPaymentStatus());
+        order.setPaymentMethod(orderDTO.getPaymentMethod());
         order.setShippingStatus(orderDTO.getShippingStatus());
         return order;
     }
@@ -52,6 +47,7 @@ public class OrderMapper {
         orderDTO.setUserId(order.getUserId());
         orderDTO.setLineItems(order.getLineItems().stream().map(lineItemMapper::fromEntityToDTO).collect(Collectors.toList()));
         orderDTO.setPaymentStatus(order.getPaymentStatus());
+        orderDTO.setPaymentMethod(order.getPaymentMethod());
         orderDTO.setShippingDetails(shippingDetailsMapper.fromEntityToDTO(order.getShippingDetails()));
         orderDTO.setShippingStatus(order.getShippingStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());

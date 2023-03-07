@@ -2,6 +2,7 @@ package com.daymeijroos.iacspring.ShippingDetails;
 
 import com.daymeijroos.iacspring.Order.Order;
 import com.daymeijroos.iacspring.ShippingDetails.Country;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -33,11 +34,11 @@ public class ShippingDetails {
     @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "Phone number cannot be empty")
+    @Nullable
     @Size(min = 10, max = 10, message = "Length does not match a regular phone number")
     @Pattern(regexp = "^[0-9]*$")
     @Column(columnDefinition = "VARCHAR(10)")
-    private String phone;
+    private String phone = null;
 
     @NotNull(message = "Country cannot be null")
     @Enumerated(EnumType.STRING)
