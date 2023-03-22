@@ -1,5 +1,6 @@
 package com.daymeijroos.iacspring.Order;
 
+import com.daymeijroos.iacspring.ShippingDetails.ShippingDetailsDAO;
 import com.daymeijroos.iacspring.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,15 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderDAO orderDAO;
     private final OrderMapper orderMapper;
+    private final ShippingDetailsDAO shippingDetailsDAO;
+    private final LineItemDAO lineItemDAO;
 
     @Autowired
-    public OrderService(OrderDAO OrderDAO, OrderMapper OrderMapper) {
+    public OrderService(OrderDAO OrderDAO, OrderMapper OrderMapper, ShippingDetailsDAO shippingDetailsDAO, LineItemDAO lineItemDAO) {
         this.orderDAO = OrderDAO;
         this.orderMapper = OrderMapper;
+        this.shippingDetailsDAO = shippingDetailsDAO;
+        this.lineItemDAO = lineItemDAO;
     }
 
     public List<OrderDTO> get() {
@@ -33,6 +38,8 @@ public class OrderService {
 
     public OrderDTO post(OrderDTO orderDTO) throws ResourceNotFoundException {
         Order order = orderMapper.fromDTOToEntity(orderDTO);
+        shippingDetailsDAO.saveToDatabase(order.getShippingDetails());
+        order.getLineItems().forEach(lineItemDAO::saveToDatabase);
         Order savedOrder = orderDAO.saveToDatabase(order);
         return orderMapper.fromEntityToDTO(savedOrder);
     }

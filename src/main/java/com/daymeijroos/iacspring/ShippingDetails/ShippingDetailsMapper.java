@@ -11,6 +11,7 @@ public class ShippingDetailsMapper {
         shippingDetails.setFirstName(shippingDetailsDTO.getFirstName());
         shippingDetails.setLastName(shippingDetailsDTO.getLastName());
         shippingDetails.setPhone(shippingDetailsDTO.getPhone());
+        shippingDetails.setEmail(shippingDetailsDTO.getEmail());
         shippingDetails.setCountry(shippingDetailsDTO.getCountry());
         shippingDetails.setCity(shippingDetailsDTO.getCity());
         shippingDetails.setAddress(shippingDetailsDTO.getAddress());
@@ -23,6 +24,7 @@ public class ShippingDetailsMapper {
         shippingDetailsDTO.setFirstName(shippingDetails.getFirstName());
         shippingDetailsDTO.setLastName(shippingDetails.getLastName());
         shippingDetailsDTO.setPhone(shippingDetails.getPhone());
+        shippingDetailsDTO.setEmail(shippingDetails.getEmail());
         shippingDetailsDTO.setCountry(shippingDetails.getCountry());
         shippingDetailsDTO.setCity(shippingDetails.getCity());
         shippingDetailsDTO.setAddress(shippingDetails.getAddress());

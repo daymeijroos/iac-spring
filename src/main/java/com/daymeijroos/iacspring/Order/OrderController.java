@@ -37,7 +37,6 @@ public class OrderController {
     @PostMapping(value = "")
     public ResponseEntity<OrderDTO> postOrder(@RequestBody @Valid OrderDTO order, Authentication auth) {
         if (auth != null) {
-            System.out.println(auth.getName());
             order.setUserId(auth.getName());
         }
         try {

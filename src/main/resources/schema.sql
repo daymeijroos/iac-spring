@@ -1,5 +1,5 @@
 drop table if exists line_item cascade;
-drop table if exists `order` cascade;
+drop table if exists product_order cascade;
 drop table if exists product cascade;
 drop table if exists category cascade;
 drop table if exists shipping_details cascade;
@@ -30,7 +30,7 @@ CREATE TABLE product (
 
 CREATE TABLE shipping_details (
     id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
-    user_id VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36),
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -41,9 +41,9 @@ CREATE TABLE shipping_details (
     address VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE `order` (
+CREATE TABLE product_order (
     id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
-    user_id VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36),
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     payment_method ENUM('NEUROPAY', 'VAULTCARD', 'SHADOWMARKET') NOT NULL,
@@ -55,9 +55,9 @@ CREATE TABLE `order` (
 
 CREATE TABLE line_item (
     id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
-    order_id VARCHAR(36) NOT NULL,
+    order_id VARCHAR(36),
     product_id VARCHAR(36) NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES `order` (id),
+    FOREIGN KEY (order_id) REFERENCES product_order (id),
     FOREIGN KEY (product_id) REFERENCES product (id)
 );

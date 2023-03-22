@@ -24,6 +24,10 @@ public class ShippingDetailsDTO {
     @Pattern(regexp = "^[0-9]*$")
     private String phone;
 
+    @NotBlank(message = "E-mail address cannot be empty")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "This is not a valid E-mail address")
+    private String email;
+
     @NotNull(message = "Country cannot be null")
     private Country country;
 

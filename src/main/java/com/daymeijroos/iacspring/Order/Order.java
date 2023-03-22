@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
+@Table(name = "product_order")
 public class Order {
     @Id
     @GeneratedValue(generator = "uuid2")
