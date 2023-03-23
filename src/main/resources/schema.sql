@@ -6,19 +6,19 @@ drop table if exists shipping_details cascade;
 drop table if exists `admin` cascade;
 
 CREATE TABLE `admin` (
-    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     user_id VARCHAR(255) NOT NULL UNIQUE
 );
 
 
 CREATE TABLE category (
-    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE product (
-    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     price DOUBLE PRECISION NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE shipping_details (
-    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     user_id VARCHAR(36),
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE shipping_details (
 );
 
 CREATE TABLE product_order (
-    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     user_id VARCHAR(36),
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     date_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -54,7 +54,7 @@ CREATE TABLE product_order (
 );
 
 CREATE TABLE line_item (
-    id VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     order_id VARCHAR(36),
     product_id VARCHAR(36) NOT NULL,
     quantity INT NOT NULL,

@@ -31,12 +31,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> {
                             try {
                                 auth
-                                        .requestMatchers("/shippingDetails").authenticated()
                                         .requestMatchers("/shippingDetails/**").authenticated()
                                         .requestMatchers("/admin/category/**").hasAuthority("SCOPE_admin:category")
                                         .requestMatchers("/admin/product/**").hasAuthority("SCOPE_admin:category")
                                         .requestMatchers("/admin/isAdmin/**").authenticated()
-                                        .anyRequest().anonymous()
+                                        .requestMatchers("/order/**").anonymous()
+                                        .requestMatchers("/category/**").anonymous()
+                                        .requestMatchers("/product/**").anonymous()
                                         .and()
                                         .cors();
                             } catch (Exception e) {
